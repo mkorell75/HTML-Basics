@@ -5,7 +5,12 @@
     </header>
     <body>
         <h1> A Very Simple Calc practicing Forms</h1>
-        <form>    <!-- If no action='URL' method='GET|PUT' is given, then the current page is the target -->
+        <!-- <form>      <!-- If no action='URL' method='GET|PUT' is given, then the current page is the target -->
+                            <!-- oninput is an event: <form oninput="result1.value = parseInt(nr1.value) + parseInt(nr2.value)"> -->
+                            <!-- JS could be written in there, but it's not ideal: -->
+                            <!-- <form onsubmit="return false" oninput="document.getElementById('result1').innerHTML = parseFloat(document.getElementById('nr1').value) + parseFloat(document.getElementById('nr2').value)">
+                            -->
+        <form oninput="calc1(nr1,nr2.value,op1.value); satlevelout.value=satlevel.value">
             <fieldset>   <!-- Fieldset is for grouping form data; draws a box around the items belonging together -->
                 <legend>Mainly for practicing</legend>      <!-- defines a caption for a fieldset element -->
                 <label>Number1
@@ -26,6 +31,8 @@
                     </select>
                 </lable>
                 <br>
+                <output id="result1id" name="result1"></output>                    <!-- option for displaying the output in form; The output element represents the result of a calculation.-->
+                <br><br>
                 <lable>Operation2
                     <input type="radio" name="op2" value="p" checked>+
                     <input type="radio" name="op2" value="m">-
@@ -40,15 +47,62 @@
                     How satisfied are you with my little practice?<br>
                     <input type='range' name="satlevel" min="0" max="100">
                 </label>
+                <lable>Current Satisfaction Level:
+                    <output name='satlevelout'></output>
+                </lable>
+                
+                <br>
                 
                 <!-- <input type='submit' value="Berechne">           <!-- Submit Button is used to send a GET/POST request-->
-                <button type="button" onclick="calc" >Berechne</button> <!-- button is used to invoke JS -->
+                <button type="button" onclick="calc(this.form)" >Berechne</button> <!-- button is used to invoke JS ; calc(thisForm) is the function invocation -->
                 <input type='reset'>                       <!-- Good Practice to allow reset -->
             </fieldset>
-            <output name="result1"></output>                    <!-- option for displaying the output in form-->
+            
         </form>
         <div>
-            <p name='result2'></p>                              <!-- option for displaying result on page -->
+            <p id='result2'>Testbild</p>                              <!-- option for displaying result on page -->
         </div>
+        <script>
+            
+            function doCalucation(a,b,op) {
+                if (op=="p") { return a+b }
+                else if (op=="m") { return a-b }
+                else if (op==="t") { return a*b }
+                else if (op=="d") { return a/b }
+                else return 0;
+            }
+
+            function calc1(nr1,nr2,op) {
+                // alert(nr1.value);
+                // nr1 attribute was given as HTMLInputElement
+                a = parseFloat(nr1.value);
+                // nr2 was translated in the event caller, already
+                b = parseFloat(nr2);
+                // op also was given as value
+                //alert(a+op+b);
+                document.getElementById("result1id").innerHTML = doCalucation(a,b,op); 
+                
+            }
+            function calc(form) {                               // in form now input values are accessible through their given name
+                //alert("In Calc")
+                v1 = form.nr1.value;
+                v2 = form.nr2.value;
+                op1 = form.op1.value;
+                op2 = form.op2.value;
+                //alert(v1+op1+v2+op2)
+                
+                // The following two are equivalent: 
+                //document.getElementById("result1id").innerHTML = v1+op1+v2; 
+                //form.result1.value=v1+op1+v2;
+                form.result1.value=doCalucation(parseFloat(v1),parseFloat(v2),op1);
+                
+                // alert(form.satlevel.value);
+                document.getElementById("result2").innerHTML = doCalucation(parseFloat(v1),parseFloat(v2),op2);
+            }
+            alert("Javascript Loaded");
+            // alert(document.getElementById("result2").innerHTML);
+            
+            
+        </script>
     </body>
 </html>
