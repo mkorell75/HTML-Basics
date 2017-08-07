@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <script></script>
+    </header>
+    <body>
+        <h1> A Very Simple Calc practicing Forms</h1>
+        <form>    <!-- If no action='URL' method='GET|PUT' is given, then the current page is the target -->
+            <fieldset>   <!-- Fieldset is for grouping form data; draws a box around the items belonging together -->
+                <legend>Mainly for practicing</legend>      <!-- defines a caption for a fieldset element -->
+                <label>Number1
+                    <input type='text' name='nr1' value='0' size="12" autofocus>   <!-- Input needs not closure --> 
+                                                                <!-- Each field needs a name to be addressed later -->
+                </label>
+                <br>
+                <lable>Number2
+                    <input type='number' name='nr2' value='0'>   <!-- Number is good for numbers, too --> 
+                </lable>
+                <br>
+                <lable>Operation1
+                    <select name='op1'>                         <!-- Drop Down box -->
+                        <option value='p' selected>+</option>   <!-- selected describes a default -->
+                        <option value='m'>-</option>
+                        <option value='t'>*</option>
+                        <option value='d'>/</option>
+                    </select>
+                </lable>
+                <br>
+                <lable>Operation2
+                    <input type="radio" name="op2" value="p" checked>+
+                    <input type="radio" name="op2" value="m">-
+                    <input type="radio" name="op2" value="t">*
+                    <input type="radio" name="op2" value="d">/
+                </lable>
+                <br>
+                <textarea name='comment' rows='10' cols="30">Was sonst noch Wissenswert ist
+                </textarea>
+                <br>
+                <label>
+                    How satisfied are you with my little practice?<br>
+                    <input type='range' name="satlevel" min="0" max="100">
+                </label>
+                
+                <!-- <input type='submit' value="Berechne">           <!-- Submit Button is used to send a GET/POST request-->
+                <button type="button" onclick="calc" >Berechne</button> <!-- button is used to invoke JS -->
+                <input type='reset'>                       <!-- Good Practice to allow reset -->
+            </fieldset>
+            <output name="result1"></output>                    <!-- option for displaying the output in form-->
+        </form>
+        <div>
+            <p name='result2'></p>                              <!-- option for displaying result on page -->
+        </div>
+    </body>
+</html>
